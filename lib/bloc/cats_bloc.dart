@@ -15,7 +15,7 @@ class CatsBloc extends Bloc<CatsEvent, CatsState>{
         yield CatsLoadingState();
         final CatsResponse response = await service.getCats();
         if(!response.isSuccessful)
-          yield CatsErrorState();
+          yield CatsErrorState(errorMessage: response.errorMessage!);
         else if(response.cats!.isNotEmpty)
           yield CatsLoadedState(cats: response.cats!);
         else yield CatsEmptyState();
@@ -37,4 +37,7 @@ class CatsLoadedState extends CatsState{
 
 class CatsEmptyState extends CatsState{}
 
-class CatsErrorState extends CatsState{}
+class CatsErrorState extends CatsState{
+  CatsErrorState({required this.errorMessage});
+  final String errorMessage;
+}

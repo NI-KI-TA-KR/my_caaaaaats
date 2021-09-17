@@ -27,7 +27,7 @@ class ListOfCats extends StatelessWidget {
       }
 
       if(catsState is CatsErrorState){
-        return NotLoadedListOfCats(text: "Oops, something went wrong. Try again");
+        return NotLoadedListOfCats(text: "Oops, something went wrong. Try again. Error: ${catsState.errorMessage}");
       }
 
       return Container();

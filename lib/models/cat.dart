@@ -5,20 +5,6 @@ abstract class Cat{
   String? get urlImage;
   String? get wikipediaUrl;
 
-  factory Cat.create({
-  final String? name,
-  final String? origin,
-  final String? urlImage,
-  final String? wikipediaUrl,
-  }){
-    return CatImpl(
-      name: name,
-      origin: origin,
-      urlImage: urlImage,
-      wikipediaUrl: wikipediaUrl
-    );
-  }
-
   factory Cat.fromJson(Map<String, dynamic> json) => CatImpl.fromJson(json);
 }
 

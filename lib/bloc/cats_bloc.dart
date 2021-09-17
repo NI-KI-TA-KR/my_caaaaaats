@@ -4,31 +4,37 @@ import 'package:cat_app/services/cats_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CatsBloc extends Bloc<CatsEvent, CatsState>{
-  CatsBloc() : super(CatsStateLoading());
+  CatsBloc() : super(CatsLoadingState());
+
+  final service = sl<CatsService>();
 
   @override
   Stream<CatsState> mapEventToState (CatsEvent event) async* {
     switch(event){
       case CatsEvent.loading: 
-        yield CatsStateLoading();
-        final data = await sl<CatsService>().getCats();
-        if(data.isNotEmpty)
-          yield CatsStateLoaded(cats: data);
-        else yield CatsStateEmpty();
+        yield CatsLoadingState();
+        final CatsResponse response = await service.getCats();
+        if(!response.isSuccessful)
+          yield CatsErrorState();
+        else if(response.cats!.isNotEmpty)
+          yield CatsLoadedState(cats: response.cats!);
+        else yield CatsEmptyState();
      }
   }
   
 }
 
- enum CatsEvent{loading,}
+enum CatsEvent{loading,}
 
 abstract class CatsState{}
 
-class CatsStateLoading extends CatsState{}
+class CatsLoadingState extends CatsState{}
 
-class CatsStateLoaded extends CatsState{
-  CatsStateLoaded({required this.cats});
+class CatsLoadedState extends CatsState{
+  CatsLoadedState({required this.cats});
   final List<Cat> cats;
 }
 
-class CatsStateEmpty extends CatsState{}
+class CatsEmptyState extends CatsState{}
+
+class CatsErrorState extends CatsState{}

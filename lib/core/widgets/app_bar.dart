@@ -1,5 +1,4 @@
 import 'package:cat_app/const.dart';
-import 'package:cat_app/styles/cats_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';

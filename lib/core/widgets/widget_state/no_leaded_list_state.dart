@@ -1,12 +1,14 @@
 import 'package:cat_app/bloc/cats_bloc.dart';
 import 'package:cat_app/const.dart';
-import 'package:cat_app/styles/cats_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class EmptyListOfCats extends StatelessWidget {
+class NotLoadedListOfCats extends StatelessWidget {
+  NotLoadedListOfCats({required this.text});
+
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class EmptyListOfCats extends StatelessWidget {
           ),
           Expanded(
             child: Text(
-              "Oops, something went wrong. Check your internet connection and try again",
+              text,
               style: TextStyle(
                   color: ThemesColor.pink,
                   fontWeight: FontWeight.bold,
